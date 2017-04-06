@@ -14,6 +14,7 @@
 from xml.sax.handler import ContentHandler
 from xml.sax import make_parser
 import sys
+from urllib import request
 
 class myContentHandler(ContentHandler):
 
@@ -58,20 +59,26 @@ class myContentHandler(ContentHandler):
         if self.inContent:
             self.theContent = self.theContent + chars
 
+""" --> esto es necesario solo en el caso de querer usarlo mediante el fichero de barrapunto
 # --- Main prog
 if len(sys.argv)<2:
     print("Usage: python xml-parser-barrapunto.py <document>")
     print()
     print(" <document>: file name of the document to parse")
     sys.exit(1)
-
+"""
 # Load parser and driver
 theParser = make_parser()
 theHandler = myContentHandler()
 theParser.setContentHandler(theHandler)
-
-# Ready, set, go!
+"""
+# Ready, set, go!1 --> con el fichero barrapunto.rss
 xmlFile = open(sys.argv[1],"r")
 theParser.parse(xmlFile)
+"""
+# Ready, set, go!2  --> con la pagina web original de barrapunto
+url = "http://barrapunto.com/index.rss"
+xmlStream = request.urlopen(url)
+theParser.parse(xmlStream)
 
 print("Parse complete")
