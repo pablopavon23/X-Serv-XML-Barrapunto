@@ -39,7 +39,7 @@ class myContentHandler(ContentHandler):
             self.inItem = False
         elif self.inItem:
             if name == 'title':
-                self.line = "Title: " + self.theContent + "."
+                self.line = "<li>Title: " + self.theContent + ".</li>"
                 # To avoid Unicode trouble
                 print(self.line)
                 self.archivo.write(self.line)
@@ -47,7 +47,7 @@ class myContentHandler(ContentHandler):
                 self.theContent = ""
             elif name == 'link':
                 self.link = self.theContent
-                links = "<p>Link: <a href='" + self.link + "'>" + self.line + "</a></p>\n"
+                links = "<p>Link: <a href='" + self.link + "'>" + self.link + "</a></p>\n"
                 print(links)
                 self.archivo.write(links)
                 self.inContent = False
