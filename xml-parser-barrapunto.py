@@ -19,8 +19,6 @@ class myContentHandler(ContentHandler):
 
     def __init__ (self):
         self.archivo = open("contents.html", "w")
-        mensaje_html = "<!DOCTYPE html>\n" + "<html>\n" + "\t<head><META http-equiv=Content-Type content=text/html; charset=UTF-8></head>\n" + "\t<body>\n" + "\t\t<ol>\n"
-        self.archivo.write(mensaje_html)
 
         self.inItem = False
         self.inContent = False
@@ -49,15 +47,12 @@ class myContentHandler(ContentHandler):
                 self.theContent = ""
             elif name == 'link':
                 self.link = self.theContent
-                links = "\t\t\t<li>Link: <a href='" + self.link + "'>" + self.line + "</a></li>\n"
+                links = "<p>Link: <a href='" + self.link + "'>" + self.line + "</a></p>\n"
                 print(links)
                 self.archivo.write(links)
                 self.inContent = False
                 self.theContent = ""
-                self.line = ""
-        elif name == 'rdf:RDF':
-                mensaje_fin = "\t\t</ol>\n" + "\t</body>\n" + "</html>"
-                self.archivo.write(mensaje_fin)
+                self.link = ""
 
     def characters (self, chars):
         if self.inContent:
